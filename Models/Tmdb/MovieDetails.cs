@@ -1,6 +1,6 @@
 ﻿namespace MovieProMVC.Models.Tmdb
 {
-    public class MovieDtails
+    public class MovieDetails
     {
         public bool adult { get; set; }
         public string backdrop_path { get; set; }
