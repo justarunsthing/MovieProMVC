@@ -24,9 +24,30 @@ namespace MovieProMVC.Services
             throw new NotImplementedException();
         }
 
-        public Task<MovieDetails> GetMovieDetailsAsync(int id)
+        public async Task<MovieDetails> GetMovieDetailsAsync(int id)
         {
-            throw new NotImplementedException();
+            var movieDetails = new MovieDetails();
+            var query = $"{_appSettings.TmdbSettings.BaseUrl}/movie/{id}";
+            var queryParams = new Dictionary<string, string>()
+            {
+                { "api_key", _appSettings.MovieProSettings.TmdbApiKey },
+                { "language", _appSettings.TmdbSettings.QueryOptions.Language },
+                { "append_to_response", _appSettings.TmdbSettings.QueryOptions.AppendToResponse }
+            };
+
+            var requestUri = QueryHelpers.AddQueryString(query, queryParams);
+            var client = _httpClient.CreateClient();
+            var request = new HttpRequestMessage(HttpMethod.Get, requestUri);
+            var response = await client.SendAsync(request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                using var responseStream = await response.Content.ReadAsStreamAsync();
+                var dcjs = new DataContractJsonSerializer(typeof(MovieDetails));
+                movieDetails = dcjs.ReadObject(responseStream) as MovieDetails;
+            }
+
+            return movieDetails;
         }
 
         public async Task<MovieSearch> SearchMoviesAsync(MovieCategory category, int count)
