@@ -19,9 +19,29 @@ namespace MovieProMVC.Services
             _httpClient = httpClient;
         }
 
-        public Task<ActorDetails> GetActorDetailsAsync(int id)
+        public async Task<ActorDetails> GetActorDetailsAsync(int id)
         {
-            throw new NotImplementedException();
+            var actorDetails = new ActorDetails();
+            var query = $"{_appSettings.TmdbSettings.BaseUrl}/person/{id}";
+            var queryParams = new Dictionary<string, string>()
+            {
+                { "api_key", _appSettings.MovieProSettings.TmdbApiKey },
+                { "language", _appSettings.TmdbSettings.QueryOptions.Language }
+            };
+
+            var requestUri = QueryHelpers.AddQueryString(query, queryParams);
+            var client = _httpClient.CreateClient();
+            var request = new HttpRequestMessage(HttpMethod.Get, requestUri);
+            var response = await client.SendAsync(request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                using var responseStream = await response.Content.ReadAsStreamAsync();
+                var dcjs = new DataContractJsonSerializer(typeof(ActorDetails));
+                actorDetails = (ActorDetails)dcjs.ReadObject(responseStream);
+            }
+
+            return actorDetails;
         }
 
         public async Task<MovieDetails> GetMovieDetailsAsync(int id)
