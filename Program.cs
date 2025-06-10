@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MovieProMVC.Data;
+using MovieProMVC.Interfaces;
 using MovieProMVC.Models.Settings;
 using MovieProMVC.Services;
 
@@ -20,6 +21,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
 
 builder.Services.AddTransient<SeedService>();
+builder.Services.AddScoped<IRemoteMovieService, TmdbMovieService>();
 
 var app = builder.Build();
 
