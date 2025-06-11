@@ -62,6 +62,7 @@
         public string character { get; set; }
         public string credit_id { get; set; }
         public int order { get; set; }
+        public string job { get; set; }
     }
 
     public class Crew

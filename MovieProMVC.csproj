@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
-    <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>aspnet-MovieProMVC-66dd3e8e-66f0-431b-baa7-6e4a23d3359f</UserSecretsId>
   </PropertyGroup>
