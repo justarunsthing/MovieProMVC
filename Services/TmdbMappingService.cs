@@ -1,9 +1,9 @@
-﻿using MovieProMVC.Interfaces;
+﻿using MovieProMVC.Enums;
+using MovieProMVC.Interfaces;
 using MovieProMVC.Models.Tmdb;
 using MovieProMVC.Models.Database;
 using MovieProMVC.Models.Settings;
 using Microsoft.Extensions.Options;
-using MovieProMVC.Enums;
 
 namespace MovieProMVC.Services
 {
@@ -20,7 +20,24 @@ namespace MovieProMVC.Services
 
         public ActorDetails MapActorDetails(ActorDetails actor)
         {
-            throw new NotImplementedException();
+            actor.profile_path = BuildCastImage(actor.profile_path);
+
+            if (string.IsNullOrEmpty(actor.biography))
+                actor.biography = "Not available";
+
+            if (string.IsNullOrEmpty(actor.place_of_birth))
+                actor.place_of_birth = "Not available";
+
+            if (string.IsNullOrEmpty(actor.birthday))
+            {
+                actor.birthday = "Not available";
+            }
+            else
+            {
+                actor.birthday = DateTime.Parse(actor.birthday).ToString("MMMM dd, yyyy");
+            }
+
+            return actor;
         }
 
         public async Task<Movie> MapMovieDetailsAsync(MovieDetails movie)
