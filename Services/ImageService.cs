@@ -36,7 +36,12 @@ namespace MovieProMVC.Services
 
         public string DecodeImage(byte[] poster, string contentType)
         {
-            throw new NotImplementedException();
+            if (poster == null)
+                return null;
+
+            var posterImage = Convert.ToBase64String(poster);
+
+            return $"data:{contentType};base64,{posterImage}";
         }
     }
 }
