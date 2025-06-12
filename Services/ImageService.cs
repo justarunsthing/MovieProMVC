@@ -22,9 +22,16 @@ namespace MovieProMVC.Services
             return ms.ToArray();
         }
 
-        public Task<byte[]> EncodeImageUrlAsync(string imageUrl)
+        public async Task<byte[]> EncodeImageUrlAsync(string imageUrl)
         {
-            throw new NotImplementedException();
+            var client = _httpClientFactory.CreateClient();
+            var response = await client.GetAsync(imageUrl);
+
+            using Stream stream = await response.Content.ReadAsStreamAsync();
+            using var ms = new MemoryStream();
+            await stream.CopyToAsync(ms);
+
+            return ms.ToArray();
         }
 
         public string DecodeImage(byte[] poster, string contentType)
