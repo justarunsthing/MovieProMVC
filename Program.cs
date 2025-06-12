@@ -24,6 +24,7 @@ builder.Services.AddTransient<SeedService>();
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<IRemoteMovieService, TmdbMovieService>();
 builder.Services.AddScoped<IDataMappingService, TmdbMappingService>();
+builder.Services.AddSingleton<IImageService, ImageService>();
 
 var app = builder.Build();
 
