@@ -2,6 +2,7 @@
 using MovieProMVC.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using MovieProMVC.Models.Settings;
+using Microsoft.EntityFrameworkCore;
 
 namespace MovieProMVC.Controllers
 {
@@ -22,9 +23,11 @@ namespace MovieProMVC.Controllers
             _tmdbMappingService = tmdbMappingService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Import()
         {
-            return View();
+            var movies = await _context.Movie.ToListAsync();
+
+            return View(movies);
         }
     }
 }
