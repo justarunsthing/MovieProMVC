@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using MovieProMVC.Models.Settings;
 using Microsoft.EntityFrameworkCore;
 using MovieProMVC.Models.Database;
+using Microsoft.Extensions.Options;
 
 namespace MovieProMVC.Controllers
 {
@@ -15,9 +16,9 @@ namespace MovieProMVC.Controllers
         private readonly IRemoteMovieService _tmdbMovieService;
         private readonly IDataMappingService _tmdbMappingService;
 
-        public MoviesController(AppSettings appSettings, ApplicationDbContext context, IImageService imageService, IRemoteMovieService tmdbMovieService, IDataMappingService tmdbMappingService)
+        public MoviesController(IOptions<AppSettings> appSettings, ApplicationDbContext context, IImageService imageService, IRemoteMovieService tmdbMovieService, IDataMappingService tmdbMappingService)
         {
-            _appSettings = appSettings;
+            _appSettings = appSettings.Value;
             _context = context;
             _imageService = imageService;
             _tmdbMovieService = tmdbMovieService;
