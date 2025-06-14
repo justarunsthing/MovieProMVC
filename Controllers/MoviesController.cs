@@ -71,5 +71,16 @@ namespace MovieProMVC.Controllers
 
             await _context.SaveChangesAsync();
         }
+
+        private async Task AddToMovieCollection(int movieId, int collectionId)
+        {
+            _context.Add(new MovieCollection
+            {
+                MovieId = movieId,
+                CollectionId = collectionId
+            });
+
+            await _context.SaveChangesAsync();
+        }
     }
 }
