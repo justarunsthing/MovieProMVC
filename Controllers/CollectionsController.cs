@@ -5,18 +5,22 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using MovieProMVC.Data;
 using MovieProMVC.Models.Database;
+using MovieProMVC.Models.Settings;
 
 namespace MovieProMVC.Controllers
 {
     public class CollectionsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly AppSettings _appSettings;
 
-        public CollectionsController(ApplicationDbContext context)
+        public CollectionsController(ApplicationDbContext context, IOptions<AppSettings> appSettings)
         {
             _context = context;
+            _appSettings = appSettings.Value;
         }
 
         // GET: Collections
