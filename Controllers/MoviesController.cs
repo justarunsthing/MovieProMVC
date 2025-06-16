@@ -81,8 +81,8 @@ namespace MovieProMVC.Controllers
                 return NotFound();
             }
 
-            var movie = await _context.Movie
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var movie = await _context.Movie.FirstOrDefaultAsync(m => m.Id == id);
+
             if (movie == null)
             {
                 return NotFound();
@@ -132,10 +132,12 @@ namespace MovieProMVC.Controllers
             }
 
             var movie = await _context.Movie.FindAsync(id);
+
             if (movie == null)
             {
                 return NotFound();
             }
+
             return View(movie);
         }
 
@@ -155,7 +157,20 @@ namespace MovieProMVC.Controllers
             {
                 try
                 {
+                    if (movie.PosterFile != null)
+                    {
+                        movie.PosterType = movie.PosterFile.ContentType;
+                        movie.Poster = await _imageService.EncodeImageAsync(movie.PosterFile);
+                    }
+
+                    if (movie.BackdropFile != null)
+                    {
+                        movie.BackdropType = movie.BackdropFile.ContentType;
+                        movie.Backdrop = await _imageService.EncodeImageAsync(movie.BackdropFile);
+                    }
+
                     _context.Update(movie);
+
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -169,8 +184,10 @@ namespace MovieProMVC.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+
+                return RedirectToAction("Details", "Movies", new { id = movie.Id, local = true });
             }
+
             return View(movie);
         }
 
@@ -182,8 +199,8 @@ namespace MovieProMVC.Controllers
                 return NotFound();
             }
 
-            var movie = await _context.Movie
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var movie = await _context.Movie.FirstOrDefaultAsync(m => m.Id == id);
+
             if (movie == null)
             {
                 return NotFound();
@@ -198,13 +215,15 @@ namespace MovieProMVC.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var movie = await _context.Movie.FindAsync(id);
+
             if (movie != null)
             {
                 _context.Movie.Remove(movie);
             }
 
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+
+            return RedirectToAction("Library", "Movies");
         }
 
         private bool MovieExists(int id)
