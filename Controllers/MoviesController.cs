@@ -226,6 +226,35 @@ namespace MovieProMVC.Controllers
             return RedirectToAction("Library", "Movies");
         }
 
+        public async Task<IActionResult> Details(int? id, bool local = false)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var movie = new Movie();
+
+            if (local)
+            {
+                movie = await _context.Movie.Include(m => m.Cast).Include(m => m.Crew).FirstOrDefaultAsync(m => m.Id == id);
+            }
+            else
+            {
+                var movieDetails = await _tmdbMovieService.GetMovieDetailsAsync((int)id);
+                movie = await _tmdbMappingService.MapMovieDetailsAsync(movieDetails);
+            }
+
+            if (movie == null)
+            {
+                return NotFound();
+            }
+
+            ViewData["Local"] = local;
+
+            return View(movie);
+        }
+
         private bool MovieExists(int id)
         {
             return _context.Movie.Any(e => e.Id == id);
