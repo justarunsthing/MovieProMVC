@@ -77,6 +77,11 @@ namespace MovieProMVC.Controllers
             {
                 try
                 {
+                    if (collection.Name == _appSettings.MovieProSettings.DefaultCollection.Name)
+                    {
+                        return RedirectToAction("Index", "MovieCollections");
+                    }
+
                     _context.Update(collection);
                     await _context.SaveChangesAsync();
                 }
