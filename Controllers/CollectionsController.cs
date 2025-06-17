@@ -130,13 +130,15 @@ namespace MovieProMVC.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var collection = await _context.Collection.FindAsync(id);
+
             if (collection != null)
             {
                 _context.Collection.Remove(collection);
             }
 
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+
+            return RedirectToAction("Index", "MovieCollections");
         }
 
         private bool CollectionExists(int id)
