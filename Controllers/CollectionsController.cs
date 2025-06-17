@@ -79,7 +79,7 @@ namespace MovieProMVC.Controllers
                 {
                     if (collection.Name == _appSettings.MovieProSettings.DefaultCollection.Name)
                     {
-                        return RedirectToAction("Index", "MovieCollections");
+                        return RedirectToAction("Index", "Collections");
                     }
 
                     _context.Update(collection);
@@ -114,6 +114,11 @@ namespace MovieProMVC.Controllers
             if (collection == null)
             {
                 return NotFound();
+            }
+
+            if (collection.Name == _appSettings.MovieProSettings.DefaultCollection.Name)
+            {
+                return RedirectToAction("Index", "Collections");
             }
 
             return View(collection);
