@@ -32,24 +32,6 @@ namespace MovieProMVC.Controllers
             return View(collections);
         }
 
-        // GET: Collections/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var collection = await _context.Collection
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (collection == null)
-            {
-                return NotFound();
-            }
-
-            return View(collection);
-        }
-
         // GET: Collections/Create
         public IActionResult Create()
         {
