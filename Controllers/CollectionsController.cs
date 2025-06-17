@@ -43,8 +43,10 @@ namespace MovieProMVC.Controllers
             {
                 _context.Add(collection);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+
+                return RedirectToAction("Index", "MovieCollections", new { id = collection.Id });
             }
+
             return View(collection);
         }
 
