@@ -26,7 +26,10 @@ namespace MovieProMVC.Controllers
         // GET: Collections
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Collection.ToListAsync());
+            var defaultCollectionName = _appSettings.MovieProSettings.DefaultCollection.Name;
+            var collections = await _context.Collection.Where(c => c.Name != defaultCollectionName).ToListAsync();
+
+            return View(collections);
         }
 
         // GET: Collections/Details/5
