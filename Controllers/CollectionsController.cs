@@ -39,15 +39,10 @@ namespace MovieProMVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Description")] Collection collection)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(collection);
-                await _context.SaveChangesAsync();
+            _context.Add(collection);
+            await _context.SaveChangesAsync();
 
-                return RedirectToAction("Index", "MovieCollections", new { id = collection.Id });
-            }
-
-            return View(collection);
+            return RedirectToAction("Index", "MovieCollections", new { id = collection.Id });
         }
 
         // GET: Collections/Edit/5
