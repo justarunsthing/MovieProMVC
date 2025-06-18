@@ -37,5 +37,33 @@ namespace MovieProMVC.Controllers
 
             return View();
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Index(int id, List<int> idsInCollection)
+        {
+            var oldRecords = _context.MovieCollection.Where(c => c.CollectionId == id);
+            _context.MovieCollection.RemoveRange(oldRecords);
+            await _context.SaveChangesAsync();
+
+            if (idsInCollection != null)
+            {
+                int index = 1;
+
+                idsInCollection.ForEach(movieId =>
+                {
+                    _context.Add(new MovieCollection
+                    {
+                        CollectionId = id,
+                        MovieId = movieId,
+                        Order = index++
+                    });
+                });
+
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToAction(nameof(Index), new { id });
+        }
     }
 }
