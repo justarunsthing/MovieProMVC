@@ -14,9 +14,12 @@ namespace MovieProMVC.Controllers
             _mappingService = mappingService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Detail(int id)
         {
-            return View();
+            var actor = await _tmdbMovieService.GetActorDetailsAsync(id);
+            actor = _mappingService.MapActorDetails(actor);
+
+            return View(actor);
         }
     }
 }
