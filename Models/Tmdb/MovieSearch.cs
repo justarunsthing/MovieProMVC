@@ -4,7 +4,7 @@
     public class MovieSearch
     {
         public int Page { get; set; }
-        public MovieSearchResult[] Results { get; set; }
+        public MovieSearchResult[] Results { get; set; } = Array.Empty<MovieSearchResult>();
         public int TotalPages { get; set; }
         public int TotalResults { get; set; }
     }
