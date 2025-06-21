@@ -10,18 +10,18 @@
         public string homepage { get; set; }
         public int id { get; set; }
         public string imdb_id { get; set; }
-        public string[] origin_country { get; set; }
+        public string[] origin_country { get; set; } = [];
         public string original_language { get; set; }
         public string original_title { get; set; }
         public string overview { get; set; }
         public float popularity { get; set; }
         public string poster_path { get; set; }
-        public Production_Companies[] production_companies { get; set; }
-        public Production_Countries[] production_countries { get; set; }
+        public Production_Companies[] production_companies { get; set; } = [];
+        public Production_Countries[] production_countries { get; set; } = [];
         public string release_date { get; set; }
         public int revenue { get; set; }
         public int runtime { get; set; }
-        public Spoken_Languages[] spoken_languages { get; set; }
+        public Spoken_Languages[] spoken_languages { get; set; } = [];
         public string status { get; set; }
         public string tagline { get; set; }
         public string title { get; set; }
@@ -44,8 +44,8 @@
 
     public class Credits
     {
-        public Cast[] cast { get; set; }
-        public Crew[] crew { get; set; }
+        public Cast[] cast { get; set; } = [];
+        public Crew[] crew { get; set; } = [];
     }
 
     public class Cast
@@ -82,14 +82,14 @@
 
     public class Images
     {
-        public object[] backdrops { get; set; }
-        public object[] logos { get; set; }
-        public object[] posters { get; set; }
+        public object[] backdrops { get; set; } = [];
+        public object[] logos { get; set; } = [];
+        public object[] posters { get; set; } = [];
     }
 
     public class Videos
     {
-        public VideoResult[] results { get; set; }
+        public VideoResult[] results { get; set; } = [];
     }
 
     public class VideoResult
@@ -108,13 +108,13 @@
 
     public class Release_Dates
     {
-        public ReleaseResult[] results { get; set; }
+        public ReleaseResult[] results { get; set; } = [];
     }
 
     public class ReleaseResult
     {
         public string iso_3166_1 { get; set; }
-        public ReleaseDate[] release_dates { get; set; }
+        public ReleaseDate[] release_dates { get; set; } = [];
     }
 
     public class ReleaseDate
