@@ -93,7 +93,7 @@ namespace MovieProMVC.Services
                 using var responseStream = await response.Content.ReadAsStreamAsync();
                 movieSearch = (MovieSearch)dcjs.ReadObject(responseStream);
                 movieSearch.Results = movieSearch.Results.Take(count).ToArray();
-                movieSearch.Results.ToList().ForEach(r => r.PosterPath = $"{_appSettings.TmdbSettings.BaseImagePath}/{_appSettings.MovieProSettings.DefaultPosterSize}/{r.PosterPath}");
+                movieSearch.Results.ToList().ForEach(r => r.poster_path = $"{_appSettings.TmdbSettings.BaseImagePath}/{_appSettings.MovieProSettings.DefaultPosterSize}/{r.poster_path}");
             }
 
             return movieSearch;
