@@ -3,7 +3,7 @@
     public class ActorDetails
     {
         public bool adult { get; set; }
-        public string[] also_known_as { get; set; }
+        public string[] also_known_as { get; set; } = [];
         public string biography { get; set; }
         public string birthday { get; set; }
         public object deathday { get; set; }
