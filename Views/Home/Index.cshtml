@@ -12,6 +12,13 @@
 		-webkit-box-orient: vertical;
 		overflow: hidden;
     }
+
+    .clamp-title {
+		display: -webkit-box;
+		-webkit-line-clamp: 2; /* Number of lines to show */
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+    }
 </style>
 
 <div class="row">
@@ -21,7 +28,7 @@
             <div class="card" style="width: 18rem;">
                 <img src="@movie.poster_path" class="card-img-top" alt="...">
                 <div class="card-body">
-                    <h5 class="card-title">@movie.title</h5>
+                    <h5 class="card-title clamp-title">@movie.title</h5>
                     <p class="card-text clamp-overview">@movie.overview</p>
                     <button class="btn btn-lg btn-warning">Details</button>
                 </div>
