@@ -4,6 +4,16 @@
 @{
     ViewData["Title"] = "MoviePro";
 }
+
+<style>
+    .clamp-overview {
+        display: -webkit-box;
+		-webkit-line-clamp: 4; /* Number of lines to show */
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+    }
+</style>
+
 <div class="row">
     @foreach (var movie in Model.Upcoming.Results)
     {
@@ -12,7 +22,7 @@
                 <img src="@movie.poster_path" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">@movie.title</h5>
-                    <p class="card-text">@movie.overview</p>
+                    <p class="card-text clamp-overview">@movie.overview</p>
                     <button class="btn btn-lg btn-warning">Details</button>
                 </div>
             </div>
