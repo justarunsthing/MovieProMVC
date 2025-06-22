@@ -34,7 +34,7 @@
                 <div class="card-body">
                     <h5 class="card-title clamp-title">@movie.title</h5>
                     <p class="card-text clamp-overview">@movie.overview</p>
-                    <button class="btn btn-lg btn-warning">Details</button>
+                    <a asp-controller="Movies" asp-action="Details" asp-route-id="@movie.id" class="btn btn-lg w-100 fw-bold btn-warning">Details</a>
                 </div>
             </div>
         </div>
