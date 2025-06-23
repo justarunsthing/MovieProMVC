@@ -3,3 +3,69 @@
 
 @model Movie
 @inject IImageService _imageService
+
+<div class="row">
+	<div class="col-sm-12 col-md-6">
+		<div class="row">
+			<img src="@_imageService.DecodeImage(Model.Poster, Model.PosterType)" class="w-100" alt="..." />
+		</div>
+		<div class="row">
+			<button class="btn btn-lg d-block fw-bolder" data-toggle="modal" data-targer="#trailer">
+				Watch Trailer
+			</button>
+		</div>
+	</div>
+	<div class="col-sm-12 col-md-6">
+		<div class="row">
+			<div class="col h5">
+				<span class="fw-bolder mr-2">
+					Title:
+				</span>
+				@Model.Title
+			</div>
+		</div>
+		<hr />
+		<div class="row">
+			<div class="col h5">
+				<span class="fw-bolder mr-2">
+					Release Date:
+				</span>
+				@Model.ReleaseDate.ToString("MMMM dd, yyyy")
+			</div>
+		</div>
+		<hr />
+		<div class="row">
+			<div class="col h5">
+				<span class="fw-bolder mr-2">
+					Rating:
+				</span>
+				@Model.Rating
+			</div>
+		</div>
+		<hr />
+		<div class="row">
+			<div class="col h5">
+				<span class="fw-bolder mr-2">
+					Reviews:
+				</span>
+				@Model.VoteAverage / 10
+			</div>
+		</div>
+		<div class="row mt-3 mb-2">
+			<div class="col">
+				<span class=" h5 fw-bolder">
+					Overview :
+				</span>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<span class="h5 ml-42">
+					@Model.Overview
+				</span>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row">
+</div>
